@@ -6,17 +6,14 @@ const funcPromise = () =>
     res('funcPromise');
   });
 const chainedPromise = prom => {
-  let promise = new Promise(res => {
-    res(prom);
-  }).then( val => val );
-  return promise;
+  if (typeof prom === 'function') {
+    prom = prom();
+  }
+  const promise = Promise.resolve(prom);
+  return promise.then(val => val);
 };
 const rejectedPromise = () => {
-    const promise = new Promise ( (res,rej) => {
-        const reason = new Error('rejectedPromise'); 
-        rej(reason);
-    })
-    return promise;
+  return Promise.reject(new Error('rejectedPromise'));
 };
 
 module.exports = { basicPromise, chainedPromise, rejectedPromise, funcPromise };

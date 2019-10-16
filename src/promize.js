@@ -1,3 +1,5 @@
-const Promize = null;
+const Promize = class {
+    constructor(){}
+};
 
 module.exports = Promize;
